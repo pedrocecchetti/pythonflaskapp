@@ -32,7 +32,7 @@ def newRestaurant():
         return render_template('newrestaurantform.htm')
 
 # Route for deleting restaurant
-@app.route('/restaurants/<int:restaurant_id>/delete', methods = ['GET','POST'])
+@app.route('/restaurant/<int:restaurant_id>/delete', methods = ['GET','POST'])
 def deleteRestaurant(restaurant_id):
     restaurantDeleted = session.query(Restaurant).filter_by(id = restaurant_id).one()
     if request.method == 'POST':
@@ -44,7 +44,7 @@ def deleteRestaurant(restaurant_id):
         return render_template('confirmdeleterestaurant.htm', restaurant = restaurantDeleted)
 
 # Route for editing restaurant
-@app.route('/restaurants/<int:restaurant_id>/edit', methods = ['GET','POST'])
+@app.route('/restaurant/<int:restaurant_id>/edit', methods = ['GET','POST'])
 def editRestaurant(restaurant_id):
     restaurantEdited = session.query(Restaurant).filter_by(id = restaurant_id).one()
     if request.method == 'POST':
@@ -55,15 +55,16 @@ def editRestaurant(restaurant_id):
     else:
         return render_template('editrestaurant.htm', restaurant = restaurantEdited)
 
-# Route for showing all restaurants
-@app.route('/restaurants/<int:restaurant_id>/')
+# Route for showing a specific restaurant Menu
+@app.route('/restaurant/<int:restaurant_id>/')
 def restaurantMenu(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id = restaurant_id).one()
     items = session.query(MenuItem).filter_by(restaurant_id = restaurant.id)
     
     return render_template('sublime_menu.htm',restaurant = restaurant, items = items)
 
-@app.route('/restaurants/<int:restaurant_id>/new/', methods = ['GET','POST'])
+# Route for adding a New MenuItem
+@app.route('/restaurant/<int:restaurant_id>/new/', methods = ['GET','POST'])
 def newMenuItem(restaurant_id):
     if request.method == 'POST':
         newItem = MenuItem(name = request.form['name'], restaurant_id = restaurant_id, description = request.form['description'], price = request.form['price'], course = request.form['course'])
@@ -73,7 +74,8 @@ def newMenuItem(restaurant_id):
     else:
         return render_template('newmenuitem.htm',  restaurant_id = restaurant_id)
 
-@app.route('/restaurants/<int:restaurant_id>/<int:menu_id>/edit/', methods = ['GET','POST'])
+# Route for editing a MenuItem
+@app.route('/restaurant/<int:restaurant_id>/<int:menu_id>/edit/', methods = ['GET','POST'])
 def editMenuItem(restaurant_id, menu_id):
     menuitem = session.query(MenuItem).filter_by(id = menu_id).one()
     if request.method == 'POST':
@@ -91,7 +93,8 @@ def editMenuItem(restaurant_id, menu_id):
     else:
         return render_template('editmenuitem.htm',restaurant_id = restaurant_id, menuitem = menuitem, menu_id = menu_id)
 
-@app.route('/restaurants/<int:restaurant_id>/<int:menu_id>/delete/', methods=['GET','POST'])
+# Route for deleting a MenuItem
+@app.route('/restaurant/<int:restaurant_id>/<int:menu_id>/delete/', methods=['GET','POST'])
 def deleteMenuItem(restaurant_id, menu_id):
     restaurant = session.query(Restaurant).filter_by(id = restaurant_id).one()
     deletedmenu = session.query(MenuItem).filter_by(id = menu_id).one()

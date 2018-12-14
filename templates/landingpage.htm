@@ -11,12 +11,15 @@
     <h1>Welcome to the restaurants Home Page:</h1>
     <hr>
     
-    {%for i in restaurants:%}
+    {%for restaurant in restaurants:%}
 
-    <h2>{{i.name}}</h2>
-    <a>{{i.id}}</a>
-    <a href = {{ url_for('restaurantMenu' , restaurant_id = i.id) }}>Go to Restaurant Page</a>
-    <br>
+    <h2>{{restaurant.id}} - {{restaurant.name}}</h2>
+    
+    <ul> 
+        <li><a href = {{ url_for('restaurantMenu' , restaurant_id = restaurant.id) }}>Go to Restaurant Page</a></li>
+        <li><a href = {{ url_for('deleteRestaurant', restaurant_id = restaurant.id) }}>Delete Restaurant</a></li>
+        <li><a href = {{ url_for('editRestaurant', restaurant_id = restaurant.id) }}>Edit Restaurant</a></li>
+    </ul>
 
     {% endfor %}
 </body>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Edit Restaurant: {{restaurant.name}}</h1>
+
+    <form action="{{url_for('editRestaurant',restaurant_id = restaurant.id)}}" method='POST'>
+        <label for="name">Name:</label>
+        <input type="text" placeholder={{restaurant.name}} name="name">
+        <br>
+        <br>
+        <input type="submit">
+    </form>
+    <br>
+    <hr>
+    
+    <a href="{{url_for('landingPage')}}">Cancel</a>
+    
+</body>
+</html>

@@ -14,5 +14,6 @@
     <form action="{{url_for('deleteMenuItem', restaurant_id=restaurant.id, menu_id = menuitem.id)}}" method="POST">
         <input type="submit">
     </form>
+    <a href = {{url_for('restaurantMenu', restaurant_id = restaurant.id)}}>Cancel</a>
 </body>
 </html>
